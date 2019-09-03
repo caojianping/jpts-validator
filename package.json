@@ -1,0 +1,31 @@
+{
+    "name": "jts-validator",
+    "version": "1.0.0",
+    "description": "Caojianping's validator library.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "release": "tsc && npm publish",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/caojianping/jts-validator.git"
+    },
+    "keywords": [
+        "validator",
+        "TypeScript",
+        "JavaScript",
+        "Node.js"
+    ],
+    "author": "caojianping",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/caojianping/jts-validator/issues"
+    },
+    "homepage": "https://github.com/caojianping/jts-validator#readme",
+    "devDependencies": {
+        "typescript": "^3.6.2"
+    }
+}
