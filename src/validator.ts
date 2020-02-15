@@ -1,4 +1,4 @@
-import Utils from "./utils";
+import Utils from './utils';
 import {
     ValidatorDataStore,
     ValidatorStrategy,
@@ -7,12 +7,12 @@ import {
     ValidationMessageType,
     ValidationOptionType,
     ValidationResult
-} from "./interfaces";
+} from './interfaces';
 
 /**
  * 验证器策略
  */
-const Strategy: ValidatorStrategy = {
+let Strategy: ValidatorStrategy = {
     Rules: {
         /**
          * 必填规则
@@ -20,10 +20,14 @@ const Strategy: ValidatorStrategy = {
          * @param isRequired
          * @param msg
          */
-        required: function (value: any, isRequired: boolean = false, msg: string = ""): any {
+        required: function(
+            value: string,
+            isRequired: boolean = false,
+            msg: string = ''
+        ): any {
             if (isRequired) {
                 if (!value) {
-                    return msg || Strategy.Messages["required"];
+                    return msg || Strategy.Messages['required'];
                 }
             }
         },
@@ -33,9 +37,9 @@ const Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        min: function (value: number, num: number, msg: string = ""): any {
+        min: function(value: number, num: number, msg: string = ''): any {
             if (value < num) {
-                return msg || Strategy.Messages["min"](num);
+                return msg || Strategy.Messages['min'](num);
             }
         },
         /**
@@ -44,9 +48,9 @@ const Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        max: function (value: number, num: number, msg: string = ""): any {
+        max: function(value: number, num: number, msg: string = ''): any {
             if (value > num) {
-                return msg || Strategy.Messages["max"](num);
+                return msg || Strategy.Messages['max'](num);
             }
         },
         /**
@@ -55,7 +59,11 @@ const Strategy: ValidatorStrategy = {
          * @param ranges
          * @param msg
          */
-        range: function (value: number, ranges: Array<number>, msg: string = ""): any {
+        range: function(
+            value: number,
+            ranges: Array<number>,
+            msg: string = ''
+        ): any {
             let minNum, maxNum;
             if (ranges[0] > ranges[1]) {
                 minNum = ranges[1];
@@ -65,7 +73,7 @@ const Strategy: ValidatorStrategy = {
                 maxNum = ranges[1];
             }
             if (value < minNum && value > maxNum) {
-                return msg || Strategy.Messages["range"](ranges);
+                return msg || Strategy.Messages['range'](ranges);
             }
         },
         /**
@@ -74,9 +82,13 @@ const Strategy: ValidatorStrategy = {
          * @param length
          * @param msg
          */
-        minLength: function (value: any, length: number, msg: string = ""): any {
+        minLength: function(
+            value: string,
+            length: number,
+            msg: string = ''
+        ): any {
             if (value.length < length) {
-                return msg || Strategy.Messages["minLength"](length);
+                return msg || Strategy.Messages['minLength'](length);
             }
         },
         /**
@@ -85,9 +97,13 @@ const Strategy: ValidatorStrategy = {
          * @param length
          * @param msg
          */
-        maxLength: function (value: any, length: number, msg: string = ""): any {
+        maxLength: function(
+            value: string,
+            length: number,
+            msg: string = ''
+        ): any {
             if (value.length > length) {
-                return msg || Strategy.Messages["maxLength"](length);
+                return msg || Strategy.Messages['maxLength'](length);
             }
         },
         /**
@@ -96,7 +112,11 @@ const Strategy: ValidatorStrategy = {
          * @param ranges
          * @param msg
          */
-        rangeLength: function (value: number, ranges: Array<number>, msg: string = ""): any {
+        rangeLength: function(
+            value: string,
+            ranges: Array<number>,
+            msg: string = ''
+        ): any {
             let minLength, maxLength;
             if (ranges[0] > ranges[1]) {
                 minLength = ranges[1];
@@ -105,8 +125,10 @@ const Strategy: ValidatorStrategy = {
                 minLength = ranges[0];
                 maxLength = ranges[1];
             }
-            if (value < minLength && value > maxLength) {
-                return msg || Strategy.Messages["rangeLength"](ranges);
+
+            let length = (value || '').length;
+            if (length < minLength && length > maxLength) {
+                return msg || Strategy.Messages['rangeLength'](ranges);
             }
         },
         /**
@@ -115,11 +137,11 @@ const Strategy: ValidatorStrategy = {
          * @param date
          * @param msg
          */
-        minDate: function (value: string, date: string, msg: string = ""): any {
+        minDate: function(value: string, date: string, msg: string = ''): any {
             value = Utils.dateReplace(value);
             date = Utils.dateReplace(date);
             if (new Date(value) < new Date(date)) {
-                return msg || Strategy.Messages["minDate"](date);
+                return msg || Strategy.Messages['minDate'](date);
             }
         },
         /**
@@ -128,11 +150,11 @@ const Strategy: ValidatorStrategy = {
          * @param date
          * @param msg
          */
-        maxDate: function (value: string, date: string, msg: string = ""): any {
+        maxDate: function(value: string, date: string, msg: string = ''): any {
             value = Utils.dateReplace(value);
             date = Utils.dateReplace(date);
             if (new Date(value) > new Date(date)) {
-                return msg || Strategy.Messages["maxDate"](date);
+                return msg || Strategy.Messages['maxDate'](date);
             }
         },
         /**
@@ -141,22 +163,15 @@ const Strategy: ValidatorStrategy = {
          * @param isChecked
          * @param msg
          */
-        checked: function (value: boolean, isChecked: boolean = false, msg: string = ""): any {
+        checked: function(
+            value: boolean,
+            isChecked: boolean = false,
+            msg: string = ''
+        ): any {
             if (isChecked) {
                 if (!value) {
-                    return msg || Strategy.Messages["checked"];
+                    return msg || Strategy.Messages['checked'];
                 }
-            }
-        },
-        /**
-         * 格式化规则
-         * @param value
-         * @param regex
-         * @param msg
-         */
-        format: function (value: any, regex: any, msg: string = ""): any {
-            if (value && !regex.test(value)) {
-                return msg || Strategy.Messages["format"];
             }
         },
         /**
@@ -165,9 +180,13 @@ const Strategy: ValidatorStrategy = {
          * @param relValue
          * @param msg
          */
-        equal: function (value: string, relValue: string, msg: string = ""): any {
+        equal: function(
+            value: string,
+            relValue: string,
+            msg: string = ''
+        ): any {
             if (value !== relValue) {
-                return msg || Strategy.Messages["equal"];
+                return msg || Strategy.Messages['equal'];
             }
         },
         /**
@@ -176,21 +195,34 @@ const Strategy: ValidatorStrategy = {
          * @param relValue
          * @param msg
          */
-        unequal: function (value: string, relValue: string, msg: string = ""): any {
+        unequal: function(
+            value: string,
+            relValue: string,
+            msg: string = ''
+        ): any {
             if (value === relValue) {
-                return msg || Strategy.Messages["unequal"];
+                return msg || Strategy.Messages['unequal'];
             }
         },
         /**
-         * 手机号规则
+         * 手机号码规则
          * @param value
          * @param isMobile
          * @param msg
          */
-        mobile: function (value: string, isMobile: boolean = false, msg: string = ""): any {
+        mobile: function(
+            value: string,
+            isMobile: boolean = false,
+            msg: string = ''
+        ): any {
             if (isMobile) {
-                if (value && !/^(0|86|17951)?(1[2|3|4|5|7|8|9][0-9])[0-9]{8}$/.test(value)) {
-                    return msg || Strategy.Messages["mobile"];
+                if (
+                    value &&
+                    !/^(0|86|17951)?(1[2|3|4|5|7|8|9][0-9])[0-9]{8}$/.test(
+                        value
+                    )
+                ) {
+                    return msg || Strategy.Messages['mobile'];
                 }
             }
         },
@@ -200,37 +232,43 @@ const Strategy: ValidatorStrategy = {
          * @param isEmail
          * @param msg
          */
-        email: function (value: string, isEmail: boolean = false, msg: string = ""): any {
+        email: function(
+            value: string,
+            isEmail: boolean = false,
+            msg: string = ''
+        ): any {
             if (isEmail) {
-                if (value && !/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(value)) {
-                    return msg || Strategy.Messages["email"];
+                if (
+                    value &&
+                    !/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(
+                        value
+                    )
+                ) {
+                    return msg || Strategy.Messages['email'];
                 }
             }
         },
         /**
-         * 身份证号规则
+         * 格式化规则
          * @param value
-         * @param isIDCardNo
+         * @param regex
          * @param msg
-         * @constructor
          */
-        IDCardNo: function (value: string, isIDCardNo: boolean = false, msg: string = ""): any {
-            if (isIDCardNo) {
-                if (value && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
-                    return msg || Strategy.Messages["IDCardNo"];
-                }
+        format: function(value: any, regex: any, msg: string = ''): any {
+            if (value && !regex.test(value)) {
+                return msg || Strategy.Messages['format'];
             }
         }
     },
     Messages: {
-        required: "这是必填字段",
-        min: function (value: number) {
-            return "请输入不小于" + value + "的数值";
+        required: '必填项',
+        min: function(value: number) {
+            return '请输入不小于' + value + '的数值';
         },
-        max: function (value: number) {
-            return "请输入不大于" + value + "的数值";
+        max: function(value: number) {
+            return '请输入不大于' + value + '的数值';
         },
-        range: function (ranges: Array<number>) {
+        range: function(ranges: Array<number>) {
             let minNum, maxNum;
             if (ranges[0] > ranges[1]) {
                 minNum = ranges[1];
@@ -239,15 +277,15 @@ const Strategy: ValidatorStrategy = {
                 minNum = ranges[0];
                 maxNum = ranges[1];
             }
-            return "请输入范围在" + minNum + "至" + maxNum + "之间的数值";
+            return '请输入范围在' + minNum + '至' + maxNum + '之间的数值';
         },
-        minLength: function (value: number) {
-            return "最少可以输入" + value + "个字符";
+        minLength: function(value: number) {
+            return '最少可以输入' + value + '个字符';
         },
-        maxLength: function (value: number) {
-            return "最多可以输入" + value + "个字符";
+        maxLength: function(value: number) {
+            return '最多可以输入' + value + '个字符';
         },
-        rangeLength: function (ranges: Array<number>) {
+        rangeLength: function(ranges: Array<number>) {
             let minLength, maxLength;
             if (ranges[0] > ranges[1]) {
                 minLength = ranges[1];
@@ -256,21 +294,22 @@ const Strategy: ValidatorStrategy = {
                 minLength = ranges[0];
                 maxLength = ranges[1];
             }
-            return "请输入长度在" + minLength + "到" + maxLength + "之间的字符串";
+            return (
+                '请输入长度在' + minLength + '到' + maxLength + '之间的字符串'
+            );
         },
-        minDate: function (value: string) {
-            return "请输入不小于" + value + "的日期";
+        minDate: function(value: string) {
+            return '请输入不小于' + value + '的日期';
         },
-        maxDate: function (value: string) {
-            return "请输入不大于" + value + "的日期";
+        maxDate: function(value: string) {
+            return '请输入不大于' + value + '的日期';
         },
-        checked: "请先同意协议",
-        format: "格式不正确",
-        equal: "两次密码输入不一致",
-        unequal: "两次数据输入一致",
-        mobile: "手机号码格式不正确",
-        email: "邮箱地址格式不正确",
-        IDCardNo: "身份证号码格式不正确"
+        checked: '请先选中数据',
+        equal: '两次密码输入不一致',
+        unequal: '两次数据输入一致',
+        mobile: '手机号码格式不正确',
+        email: '邮箱地址格式不正确',
+        format: '格式不正确'
     }
 };
 
@@ -281,6 +320,34 @@ export default class Validator {
      */
     private dataStore: ValidatorDataStore = {};
 
+    /**
+     * 扩展规则
+     * @param rules 规则数据
+     * @param messages 消息数据
+     */
+    public static extendRule(
+        rules: ValidationRuleType,
+        messages: ValidationMessageType
+    ): boolean {
+        for (const key in rules) {
+            if (rules.hasOwnProperty(key)) {
+                const value = rules[key];
+                if (!Strategy.Rules.hasOwnProperty(key)) {
+                    Strategy.Rules[key] = value;
+                }
+            }
+        }
+        for (const key in messages) {
+            if (messages.hasOwnProperty(key)) {
+                const value = messages[key];
+                if (!Strategy.Messages.hasOwnProperty(key)) {
+                    Strategy.Messages[key] = value;
+                }
+            }
+        }
+        return true;
+    }
+
     /***
      * 添加验证规则
      * @param key
@@ -288,7 +355,12 @@ export default class Validator {
      * @param rules
      * @param messages
      */
-    public addRule(key: string, model: ValidationModelType, rules: ValidationRuleType, messages: ValidationMessageType = {}): boolean {
+    public addRule(
+        key: string,
+        model: ValidationModelType,
+        rules: ValidationRuleType,
+        messages: ValidationMessageType = {}
+    ): boolean {
         if (!this.dataStore.hasOwnProperty(key)) {
             this.dataStore[key] = {};
         }
@@ -299,8 +371,8 @@ export default class Validator {
         let self = this,
             mvalue = model.value;
         for (let rule in rules) {
-            (function (type, value, msg) {
-                self.dataStore[key][name].push(function () {
+            (function(type, value, msg) {
+                self.dataStore[key][name].push(function() {
                     let Rules = Strategy.Rules;
                     if (Rules.hasOwnProperty(type)) {
                         return Rules[type].apply(null, [mvalue, value, msg]);
@@ -316,7 +388,10 @@ export default class Validator {
      * @param key
      * @param options
      */
-    public addRules(key: string, options: Array<ValidationOptionType>): boolean {
+    public addRules(
+        key: string,
+        options: Array<ValidationOptionType>
+    ): boolean {
         if (!key) return false;
 
         let self = this;
@@ -335,11 +410,15 @@ export default class Validator {
 
             let mvalue = model.value;
             for (let rule in rules) {
-                (function (type, value, msg) {
-                    self.dataStore[key][name].push(function () {
+                (function(type, value, msg) {
+                    self.dataStore[key][name].push(function() {
                         let Rules = Strategy.Rules;
                         if (Rules.hasOwnProperty(type)) {
-                            return Rules[type].apply(null, [mvalue, value, msg]);
+                            return Rules[type].apply(null, [
+                                mvalue,
+                                value,
+                                msg
+                            ]);
                         }
                     });
                 })(rule, rules[rule], messages[rule]);
@@ -363,7 +442,7 @@ export default class Validator {
             let value = dataStore[m] || {};
             for (let n in value) {
                 let fns = value[n] || [];
-                for (let i = 0, fn; fn = fns[i++];) {
+                for (let i = 0, fn; (fn = fns[i++]); ) {
                     let msg = fn();
                     if (!msg) continue;
 
