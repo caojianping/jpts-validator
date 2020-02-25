@@ -1,6 +1,6 @@
 {
-    "name": "jts-validator",
-    "version": "1.0.0",
+    "name": "jpts-validator",
+    "version": "1.0.1",
     "description": "Caojianping's validator library.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/caojianping/jts-validator.git"
+        "url": "git+https://github.com/caojianping/jpts-validator.git"
     },
     "keywords": [
         "validator",
@@ -22,9 +22,9 @@
     "author": "caojianping",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/caojianping/jts-validator/issues"
+        "url": "https://github.com/caojianping/jpts-validator/issues"
     },
-    "homepage": "https://github.com/caojianping/jts-validator#readme",
+    "homepage": "https://github.com/caojianping/jpts-validator#readme",
     "devDependencies": {
         "typescript": "^3.6.2"
     }

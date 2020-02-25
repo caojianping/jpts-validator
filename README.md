@@ -1,20 +1,20 @@
-# jts-validator
+# jpts-validator
 Caojianping's validator library.
 
 ## Installing
 Using npm:
 ```bash
-$ npm install jts-validator
+$ npm install jpts-validator
 ```
 
 Using yarn:
 ```bash
-$ yarn add jts-validator
+$ yarn add jpts-validator
 ```
 
 ## Example
 ```ts
-import {LocalStorage, SessionStorage} from 'jts-storage';
+import Validator from 'jpts-validator';
 
 // test for validator
 const key = 'test';

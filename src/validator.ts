@@ -21,13 +21,19 @@ let Strategy: ValidatorStrategy = {
          * @param msg
          */
         required: function(
-            value: string,
+            value: any,
             isRequired: boolean = false,
             msg: string = ''
         ): any {
             if (isRequired) {
-                if (!value) {
-                    return msg || Strategy.Messages['required'];
+                if (Utils.isString(value)) {
+                    if (!value) {
+                        return msg || Strategy.Messages['required'];
+                    }
+                } else {
+                    if (value === null || value === undefined) {
+                        return msg || Strategy.Messages['required'];
+                    }
                 }
             }
         },
