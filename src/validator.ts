@@ -85,7 +85,7 @@ let Strategy: ValidatorStrategy = {
             num: number,
             msg: string = ''
         ): any {
-            if (value > num) {
+            if (value >= num) {
                 return msg || Strategy.Messages['max'](num);
             }
         },

@@ -1,6 +1,6 @@
 {
     "name": "jpts-validator",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Caojianping's validator library.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
