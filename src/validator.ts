@@ -49,12 +49,42 @@ let Strategy: ValidatorStrategy = {
             }
         },
         /**
+         * 最小值规则（排除num临界值）
+         * @param value
+         * @param num
+         * @param msg
+         */
+        minExclude: function(
+            value: number,
+            num: number,
+            msg: string = ''
+        ): any {
+            if (value <= num) {
+                return msg || Strategy.Messages['min'](num);
+            }
+        },
+        /**
          * 最大值规则
          * @param value
          * @param num
          * @param msg
          */
         max: function(value: number, num: number, msg: string = ''): any {
+            if (value > num) {
+                return msg || Strategy.Messages['max'](num);
+            }
+        },
+        /**
+         * 最大值规则（排除num临界值）
+         * @param value
+         * @param num
+         * @param msg
+         */
+        maxExclude: function(
+            value: number,
+            num: number,
+            msg: string = ''
+        ): any {
             if (value > num) {
                 return msg || Strategy.Messages['max'](num);
             }
@@ -271,8 +301,14 @@ let Strategy: ValidatorStrategy = {
         min: function(value: number) {
             return '请输入不小于' + value + '的数值';
         },
+        minExclude: function(value: number) {
+            return '请输入不小于等于' + value + '的数值';
+        },
         max: function(value: number) {
             return '请输入不大于' + value + '的数值';
+        },
+        maxExclude: function(value: number) {
+            return '请输入不大于等于' + value + '的数值';
         },
         range: function(ranges: Array<number>) {
             let minNum, maxNum;
