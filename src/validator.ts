@@ -6,7 +6,7 @@ import {
     ValidationRuleType,
     ValidationMessageType,
     ValidationOptionType,
-    ValidationResult
+    ValidationResult,
 } from './interfaces';
 
 /**
@@ -20,7 +20,7 @@ let Strategy: ValidatorStrategy = {
          * @param isRequired
          * @param msg
          */
-        required: function(
+        required: function (
             value: any,
             isRequired: boolean = false,
             msg: string = ''
@@ -43,7 +43,7 @@ let Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        min: function(value: number, num: number, msg: string = ''): any {
+        min: function (value: number, num: number, msg: string = ''): any {
             if (value < num) {
                 return msg || Strategy.Messages['min'](num);
             }
@@ -54,7 +54,7 @@ let Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        minExclude: function(
+        minExclude: function (
             value: number,
             num: number,
             msg: string = ''
@@ -69,7 +69,7 @@ let Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        max: function(value: number, num: number, msg: string = ''): any {
+        max: function (value: number, num: number, msg: string = ''): any {
             if (value > num) {
                 return msg || Strategy.Messages['max'](num);
             }
@@ -80,7 +80,7 @@ let Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        maxExclude: function(
+        maxExclude: function (
             value: number,
             num: number,
             msg: string = ''
@@ -95,7 +95,7 @@ let Strategy: ValidatorStrategy = {
          * @param ranges
          * @param msg
          */
-        range: function(
+        range: function (
             value: number,
             ranges: Array<number>,
             msg: string = ''
@@ -118,7 +118,7 @@ let Strategy: ValidatorStrategy = {
          * @param length
          * @param msg
          */
-        minLength: function(
+        minLength: function (
             value: string,
             length: number,
             msg: string = ''
@@ -133,7 +133,7 @@ let Strategy: ValidatorStrategy = {
          * @param length
          * @param msg
          */
-        maxLength: function(
+        maxLength: function (
             value: string,
             length: number,
             msg: string = ''
@@ -148,7 +148,7 @@ let Strategy: ValidatorStrategy = {
          * @param ranges
          * @param msg
          */
-        rangeLength: function(
+        rangeLength: function (
             value: string,
             ranges: Array<number>,
             msg: string = ''
@@ -173,7 +173,7 @@ let Strategy: ValidatorStrategy = {
          * @param date
          * @param msg
          */
-        minDate: function(value: string, date: string, msg: string = ''): any {
+        minDate: function (value: string, date: string, msg: string = ''): any {
             value = Utils.dateReplace(value);
             date = Utils.dateReplace(date);
             if (new Date(value) < new Date(date)) {
@@ -186,7 +186,7 @@ let Strategy: ValidatorStrategy = {
          * @param date
          * @param msg
          */
-        maxDate: function(value: string, date: string, msg: string = ''): any {
+        maxDate: function (value: string, date: string, msg: string = ''): any {
             value = Utils.dateReplace(value);
             date = Utils.dateReplace(date);
             if (new Date(value) > new Date(date)) {
@@ -199,7 +199,7 @@ let Strategy: ValidatorStrategy = {
          * @param isChecked
          * @param msg
          */
-        checked: function(
+        checked: function (
             value: boolean,
             isChecked: boolean = false,
             msg: string = ''
@@ -216,7 +216,7 @@ let Strategy: ValidatorStrategy = {
          * @param relValue
          * @param msg
          */
-        equal: function(
+        equal: function (
             value: string,
             relValue: string,
             msg: string = ''
@@ -231,7 +231,7 @@ let Strategy: ValidatorStrategy = {
          * @param relValue
          * @param msg
          */
-        unequal: function(
+        unequal: function (
             value: string,
             relValue: string,
             msg: string = ''
@@ -246,7 +246,7 @@ let Strategy: ValidatorStrategy = {
          * @param isMobile
          * @param msg
          */
-        mobile: function(
+        mobile: function (
             value: string,
             isMobile: boolean = false,
             msg: string = ''
@@ -254,9 +254,8 @@ let Strategy: ValidatorStrategy = {
             if (isMobile) {
                 if (
                     value &&
-                    !/^(0|86|17951)?(1[2|3|4|5|7|8|9][0-9])[0-9]{8}$/.test(
-                        value
-                    )
+                    // !/^(0|86|17951)?(1[2|3|4|5|7|8|9][0-9])[0-9]{8}$/.test(
+                    !/^(0|86|17951)?(1[0-9][0-9])[0-9]{8}$/.test(value)
                 ) {
                     return msg || Strategy.Messages['mobile'];
                 }
@@ -268,7 +267,7 @@ let Strategy: ValidatorStrategy = {
          * @param isEmail
          * @param msg
          */
-        email: function(
+        email: function (
             value: string,
             isEmail: boolean = false,
             msg: string = ''
@@ -290,27 +289,27 @@ let Strategy: ValidatorStrategy = {
          * @param regex
          * @param msg
          */
-        format: function(value: any, regex: any, msg: string = ''): any {
+        format: function (value: any, regex: any, msg: string = ''): any {
             if (value && !regex.test(value)) {
                 return msg || Strategy.Messages['format'];
             }
-        }
+        },
     },
     Messages: {
         required: '必填项',
-        min: function(value: number) {
+        min: function (value: number) {
             return '请输入不小于' + value + '的数值';
         },
-        minExclude: function(value: number) {
+        minExclude: function (value: number) {
             return '请输入不小于等于' + value + '的数值';
         },
-        max: function(value: number) {
+        max: function (value: number) {
             return '请输入不大于' + value + '的数值';
         },
-        maxExclude: function(value: number) {
+        maxExclude: function (value: number) {
             return '请输入不大于等于' + value + '的数值';
         },
-        range: function(ranges: Array<number>) {
+        range: function (ranges: Array<number>) {
             let minNum, maxNum;
             if (ranges[0] > ranges[1]) {
                 minNum = ranges[1];
@@ -321,13 +320,13 @@ let Strategy: ValidatorStrategy = {
             }
             return '请输入范围在' + minNum + '至' + maxNum + '之间的数值';
         },
-        minLength: function(value: number) {
+        minLength: function (value: number) {
             return '最少可以输入' + value + '个字符';
         },
-        maxLength: function(value: number) {
+        maxLength: function (value: number) {
             return '最多可以输入' + value + '个字符';
         },
-        rangeLength: function(ranges: Array<number>) {
+        rangeLength: function (ranges: Array<number>) {
             let minLength, maxLength;
             if (ranges[0] > ranges[1]) {
                 minLength = ranges[1];
@@ -340,10 +339,10 @@ let Strategy: ValidatorStrategy = {
                 '请输入长度在' + minLength + '到' + maxLength + '之间的字符串'
             );
         },
-        minDate: function(value: string) {
+        minDate: function (value: string) {
             return '请输入不小于' + value + '的日期';
         },
-        maxDate: function(value: string) {
+        maxDate: function (value: string) {
             return '请输入不大于' + value + '的日期';
         },
         checked: '请先选中数据',
@@ -351,8 +350,8 @@ let Strategy: ValidatorStrategy = {
         unequal: '两次数据输入一致',
         mobile: '手机号码格式不正确',
         email: '邮箱地址格式不正确',
-        format: '格式不正确'
-    }
+        format: '格式不正确',
+    },
 };
 
 // 策略模式（验证器实现）
@@ -413,8 +412,8 @@ export default class Validator {
         let self = this,
             mvalue = model.value;
         for (let rule in rules) {
-            (function(type, value, msg) {
-                self.dataStore[key][name].push(function() {
+            (function (type, value, msg) {
+                self.dataStore[key][name].push(function () {
                     let Rules = Strategy.Rules;
                     if (Rules.hasOwnProperty(type)) {
                         return Rules[type].apply(null, [mvalue, value, msg]);
@@ -452,14 +451,14 @@ export default class Validator {
 
             let mvalue = model.value;
             for (let rule in rules) {
-                (function(type, value, msg) {
-                    self.dataStore[key][name].push(function() {
+                (function (type, value, msg) {
+                    self.dataStore[key][name].push(function () {
                         let Rules = Strategy.Rules;
                         if (Rules.hasOwnProperty(type)) {
                             return Rules[type].apply(null, [
                                 mvalue,
                                 value,
-                                msg
+                                msg,
                             ]);
                         }
                     });
@@ -496,7 +495,7 @@ export default class Validator {
         }
         return {
             status: result,
-            data: temp
+            data: temp,
         };
     }
 }
