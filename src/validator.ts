@@ -1,4 +1,4 @@
-import Utils from './utils';
+import Util from './util';
 import {
     ValidatorDataStore,
     ValidatorStrategy,
@@ -20,13 +20,9 @@ let Strategy: ValidatorStrategy = {
          * @param isRequired
          * @param msg
          */
-        required: function (
-            value: any,
-            isRequired: boolean = false,
-            msg: string = ''
-        ): any {
+        required: function (value: any, isRequired: boolean = false, msg: string = ''): any {
             if (isRequired) {
-                if (Utils.isString(value)) {
+                if (Util.isString(value)) {
                     if (!value) {
                         return msg || Strategy.Messages['required'];
                     }
@@ -54,11 +50,7 @@ let Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        minExclude: function (
-            value: number,
-            num: number,
-            msg: string = ''
-        ): any {
+        minExclude: function (value: number, num: number, msg: string = ''): any {
             if (value <= num) {
                 return msg || Strategy.Messages['min'](num);
             }
@@ -80,11 +72,7 @@ let Strategy: ValidatorStrategy = {
          * @param num
          * @param msg
          */
-        maxExclude: function (
-            value: number,
-            num: number,
-            msg: string = ''
-        ): any {
+        maxExclude: function (value: number, num: number, msg: string = ''): any {
             if (value >= num) {
                 return msg || Strategy.Messages['max'](num);
             }
@@ -95,11 +83,7 @@ let Strategy: ValidatorStrategy = {
          * @param ranges
          * @param msg
          */
-        range: function (
-            value: number,
-            ranges: Array<number>,
-            msg: string = ''
-        ): any {
+        range: function (value: number, ranges: Array<number>, msg: string = ''): any {
             let minNum, maxNum;
             if (ranges[0] > ranges[1]) {
                 minNum = ranges[1];
@@ -118,11 +102,7 @@ let Strategy: ValidatorStrategy = {
          * @param length
          * @param msg
          */
-        minLength: function (
-            value: string,
-            length: number,
-            msg: string = ''
-        ): any {
+        minLength: function (value: string, length: number, msg: string = ''): any {
             if (value.length < length) {
                 return msg || Strategy.Messages['minLength'](length);
             }
@@ -133,11 +113,7 @@ let Strategy: ValidatorStrategy = {
          * @param length
          * @param msg
          */
-        maxLength: function (
-            value: string,
-            length: number,
-            msg: string = ''
-        ): any {
+        maxLength: function (value: string, length: number, msg: string = ''): any {
             if (value.length > length) {
                 return msg || Strategy.Messages['maxLength'](length);
             }
@@ -148,11 +124,7 @@ let Strategy: ValidatorStrategy = {
          * @param ranges
          * @param msg
          */
-        rangeLength: function (
-            value: string,
-            ranges: Array<number>,
-            msg: string = ''
-        ): any {
+        rangeLength: function (value: string, ranges: Array<number>, msg: string = ''): any {
             let minLength, maxLength;
             if (ranges[0] > ranges[1]) {
                 minLength = ranges[1];
@@ -174,8 +146,8 @@ let Strategy: ValidatorStrategy = {
          * @param msg
          */
         minDate: function (value: string, date: string, msg: string = ''): any {
-            value = Utils.dateReplace(value);
-            date = Utils.dateReplace(date);
+            value = Util.dateReplace(value);
+            date = Util.dateReplace(date);
             if (new Date(value) < new Date(date)) {
                 return msg || Strategy.Messages['minDate'](date);
             }
@@ -187,8 +159,8 @@ let Strategy: ValidatorStrategy = {
          * @param msg
          */
         maxDate: function (value: string, date: string, msg: string = ''): any {
-            value = Utils.dateReplace(value);
-            date = Utils.dateReplace(date);
+            value = Util.dateReplace(value);
+            date = Util.dateReplace(date);
             if (new Date(value) > new Date(date)) {
                 return msg || Strategy.Messages['maxDate'](date);
             }
@@ -199,11 +171,7 @@ let Strategy: ValidatorStrategy = {
          * @param isChecked
          * @param msg
          */
-        checked: function (
-            value: boolean,
-            isChecked: boolean = false,
-            msg: string = ''
-        ): any {
+        checked: function (value: boolean, isChecked: boolean = false, msg: string = ''): any {
             if (isChecked) {
                 if (!value) {
                     return msg || Strategy.Messages['checked'];
@@ -216,11 +184,7 @@ let Strategy: ValidatorStrategy = {
          * @param relValue
          * @param msg
          */
-        equal: function (
-            value: string,
-            relValue: string,
-            msg: string = ''
-        ): any {
+        equal: function (value: string, relValue: string, msg: string = ''): any {
             if (value !== relValue) {
                 return msg || Strategy.Messages['equal'];
             }
@@ -231,11 +195,7 @@ let Strategy: ValidatorStrategy = {
          * @param relValue
          * @param msg
          */
-        unequal: function (
-            value: string,
-            relValue: string,
-            msg: string = ''
-        ): any {
+        unequal: function (value: string, relValue: string, msg: string = ''): any {
             if (value === relValue) {
                 return msg || Strategy.Messages['unequal'];
             }
@@ -246,11 +206,7 @@ let Strategy: ValidatorStrategy = {
          * @param isMobile
          * @param msg
          */
-        mobile: function (
-            value: string,
-            isMobile: boolean = false,
-            msg: string = ''
-        ): any {
+        mobile: function (value: string, isMobile: boolean = false, msg: string = ''): any {
             if (isMobile) {
                 if (
                     value &&
@@ -267,18 +223,9 @@ let Strategy: ValidatorStrategy = {
          * @param isEmail
          * @param msg
          */
-        email: function (
-            value: string,
-            isEmail: boolean = false,
-            msg: string = ''
-        ): any {
+        email: function (value: string, isEmail: boolean = false, msg: string = ''): any {
             if (isEmail) {
-                if (
-                    value &&
-                    !/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(
-                        value
-                    )
-                ) {
+                if (value && !/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/.test(value)) {
                     return msg || Strategy.Messages['email'];
                 }
             }
@@ -335,9 +282,7 @@ let Strategy: ValidatorStrategy = {
                 minLength = ranges[0];
                 maxLength = ranges[1];
             }
-            return (
-                '请输入长度在' + minLength + '到' + maxLength + '之间的字符串'
-            );
+            return '请输入长度在' + minLength + '到' + maxLength + '之间的字符串';
         },
         minDate: function (value: string) {
             return '请输入不小于' + value + '的日期';
@@ -366,10 +311,7 @@ export default class Validator {
      * @param rules 规则数据
      * @param messages 消息数据
      */
-    public static extendRule(
-        rules: ValidationRuleType,
-        messages: ValidationMessageType
-    ): boolean {
+    public static extendRule(rules: ValidationRuleType, messages: ValidationMessageType): boolean {
         for (const key in rules) {
             if (rules.hasOwnProperty(key)) {
                 const value = rules[key];
@@ -429,10 +371,7 @@ export default class Validator {
      * @param key
      * @param options
      */
-    public addRules(
-        key: string,
-        options: Array<ValidationOptionType>
-    ): boolean {
+    public addRules(key: string, options: Array<ValidationOptionType>): boolean {
         if (!key) return false;
 
         let self = this;
@@ -455,11 +394,7 @@ export default class Validator {
                     self.dataStore[key][name].push(function () {
                         let Rules = Strategy.Rules;
                         if (Rules.hasOwnProperty(type)) {
-                            return Rules[type].apply(null, [
-                                mvalue,
-                                value,
-                                msg,
-                            ]);
+                            return Rules[type].apply(null, [mvalue, value, msg]);
                         }
                     });
                 })(rule, rules[rule], messages[rule]);

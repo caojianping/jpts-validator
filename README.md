@@ -1,7 +1,7 @@
 # jpts-validator
-Caojianping's validator library.
+TypeScript版本的验证器Validator，提供简单的正则、长度、大小、范围、数字、字符、日期等验证功能，同时支持验证规则的自定义扩展。
 
-## Installing
+## 安装
 Using npm:
 ```bash
 $ npm install jpts-validator
@@ -12,7 +12,7 @@ Using yarn:
 $ yarn add jpts-validator
 ```
 
-## Example
+## 示例
 ```ts
 import Validator from 'jpts-validator';
 
@@ -47,7 +47,7 @@ if (!result.status) {// 验证失败，弹出校验失败数据对象
 ##### Validator.addRules(key: string, options: Array<ValidationOptionType>): boolean
 ##### Validator.execute(key: string): ValidationResult
 
-## Rules
+## 验证规则
 ```ts
 // 规则列表
 {
@@ -55,8 +55,12 @@ if (!result.status) {// 验证失败，弹出校验失败数据对象
     required: any,
     // 最小值规则
     min: any,
+    // 最小值规则（排除num临界值）
+    minExclude: any,
     // 最大值规则
     max: any,
+    // 最大值规则（排除num临界值）
+    maxExclude: any,
     // 值范围规则
     range: any,
     // 最小长度规则

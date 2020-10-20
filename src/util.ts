@@ -1,4 +1,4 @@
-export default class Utils {
+export default class Util {
     /**
      * 判断是否为字符串
      * @param str

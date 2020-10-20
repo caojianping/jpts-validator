@@ -5,12 +5,8 @@
         "baseUrl": "src",
         "outDir": "./dist",
         "declaration": true,
-        "lib": [
-            "esnext"
-        ],
+        "lib": ["esnext"],
         "listFiles": true
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "exclude": ["node_modules"]
 }
